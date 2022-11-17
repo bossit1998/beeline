@@ -61,7 +61,7 @@ public class SalesService {
         Map<String, Object> pageResponse = new HashMap<>();
         pageResponse.put("totalElements", salesPage.getTotalElements());
         pageResponse.put("totalPages", salesPage.getTotalPages());
-        pageResponse.put("data", salesPage.getContent().stream().map(sales -> getSale(sales).getData()).collect(Collectors.toList()));
+        pageResponse.put("data", salesPage.getContent().stream().map(sales -> getSale(sales).getData()).map(sale -> getSale(sale).getData()));
 
         return ResponseEntity.ok(new ResponseModel<>(true, "Success", pageResponse));
     }
@@ -95,7 +95,7 @@ public class SalesService {
         Map<String, Object> pageResponse = new HashMap<>();
         pageResponse.put("totalElements", salesPage.getTotalElements());
         pageResponse.put("totalPages", salesPage.getTotalPages());
-        pageResponse.put("data", salesPage.stream().map(sales -> getSale(sales)).collect(Collectors.toList()));
+        pageResponse.put("data", salesPage.stream().map(sales -> getSale(sales).getData()).collect(Collectors.toList()));
 
         return ResponseEntity.ok(new ResponseModel<>(true, "Success", pageResponse));
     }
